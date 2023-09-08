@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 def get_new_filename(path):
-    if type(path) == str:
+    if isinstance(path, str):
         path = Path(path)
     if not os.path.exists(os.path.join(path.parent, path.name)):
         return path
