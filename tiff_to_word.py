@@ -2,10 +2,11 @@
 
 import tkinter as tk
 from tkinter import filedialog
-import os
+
 import docx
 import pytesseract
 from PIL import Image
+
 from get_new_filename import get_new_filename
 
 tess_config = '--psm 3'
@@ -19,7 +20,7 @@ def tiff_to_docx(tiff_file, docx_file):
     text = pytesseract.image_to_string(im, lang='rus', config=tess_config)
     try:
         # Открываем существующий Word-документ
-        doc = docx.Document(docx_file)
+        doc = docx.Document(str(docx_file))
     except docx.opc.exceptions.PackageNotFoundError:
         # Создаем новый Word-документ, если файл не существует
         doc = docx.Document()
@@ -45,13 +46,15 @@ def tiff_to_docx(tiff_file, docx_file):
 def processing_to_folder():
     tiff_files = tiff_entry.get().split(', ')
     docx_file = docx_entry.get()
-    directory = ''.join(tiff_files[0]).rsplit('/', 1)[0].replace('/', '\\')
-    docx_file = directory + '\\' + docx_file + '.docx'
+    # directory = ''.join(tiff_files[0]).rsplit('/', 1)[0].replace('/', '\\')
+    directory = ''.join(tiff_files[0]).rsplit('/', 1)[0]
+    docx_file = directory + '/' + docx_file + '.docx'
     print(docx_file)
     docx_file = get_new_filename(docx_file)
     print(docx_file)
     for file in tiff_files:
         if file.lower().endswith(".tiff"):
+            print(file)
             # input_file = os.path.join(input_folder, file)
             # base_filename = os.path.splitext(file)[0]
             # output_file = os.path.join(input_folder, base_filename + '.docx')
@@ -103,14 +106,14 @@ app.title("TIFF to DOCX Converter")
 
 tiff_label = tk.Label(app, text="TIFF файлы:")
 tiff_label.grid(row=0, column=0, sticky="e")
-tiff_entry = tk.Entry(app, width=60)
+tiff_entry = tk.Entry(app, width=40)
 tiff_entry.grid(row=0, column=1)
 tiff_button = tk.Button(app, text="Обзор", command=select_tiff_files)
 tiff_button.grid(row=0, column=2)
 
 docx_label = tk.Label(app, text="Имя DOCX файла:")
 docx_label.grid(row=1, column=0, sticky="e")
-docx_entry = tk.Entry(app, width=60)
+docx_entry = tk.Entry(app, width=40)
 docx_entry.grid(row=1, column=1)
 # docx_button = tk.Button(app, text="Обзор", command=select_docx_folder)
 # docx_button.grid(row=1, column=2)
