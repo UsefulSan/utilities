@@ -10,3 +10,4 @@ repos:
       - id: mypy
         args:
           - --strict
+          - --ignore-missing-imports
