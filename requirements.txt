@@ -2,8 +2,8 @@ fire==0.5.0
 fonttools==4.42.1
 lxml==4.9.3
 packaging==23.1
-Pillow==10.0.0
-pytesseract==0.3.10
+Pillow~=10.0.0
+pytesseract~=0.3.10
 python-docx==0.8.11
 ruff==0.0.287
 six==1.16.0
